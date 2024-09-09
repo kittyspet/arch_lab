@@ -1,0 +1,8 @@
+14:54:01.461 [main] INFO  d.s.c.ls.C4LanguageServerLauncher - Starting ProcessIO Connection
+14:54:01.461 [main] INFO  d.s.c.ls.C4LanguageServerLauncher - Launching C4LanguageServer started
+14:54:02.176 [main] INFO  d.s.c.ls.service.C4LanguageServer - getTextDocumentService
+14:54:02.481 [main] INFO  d.s.c.ls.service.C4LanguageServer - getWorkspaceService
+14:54:02.495 [main] INFO  d.s.c.ls.service.C4LanguageServer - getTextDocumentService
+14:54:02.532 [main] INFO  d.s.c.ls.service.C4LanguageServer - connect
+14:54:02.751 [pool-1-thread-1] INFO  d.s.c.ls.service.C4LanguageServer - initialize
+14:54:05.259 [main] INFO  d.s.c.ls.C4LanguageServerLauncher - Launching C4LanguageServer finished

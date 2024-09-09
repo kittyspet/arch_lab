@@ -1,0 +1,147 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Arch Lab Example API'
+  description: Пример API для первого домашнего задания по курсу Архитектура программных систем
+servers:
+  - url: http://localhost:8080
+    description: Example server
+paths:
+  /search_conf:
+    get:
+      summary: Поиск конференции по маске названия
+      parameters:
+      - name: conf_name
+        description: Название
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The confs for the provided masks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/confs'
+        404:
+          description: No conf found for the provided mask
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /conf:
+    get:
+      summary: Чтение информации о конференции
+      parameters:
+      - name: id
+        description: Уникальный идентификатор конференции
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/conf_id'
+      responses:
+        '200':
+          description: Найденная конференция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/conf'
+        404:
+          description: Конференция не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Добавление новой конференции
+      parameters:
+      - name: conf_name
+        description: Название конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: owner
+        description: Владелец конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: password
+        description: Пароль конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Идентификатор, добавленной конференции
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка добавления конференции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    conf_id:
+      description: Уникальный идентификатор конференции
+      type: integer
+    confs:
+      type: array
+      items:
+        $ref: '#/components/schemas/conf'
+    conf:
+      type: object
+      required:
+        - id
+        - conf_name
+        - owner
+        - password
+      properties:
+        id:
+          $ref: '#/components/schemas/conf_id'
+        conf_name:
+          type: string
+        owner:
+          type: integer
+        password:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Сообщение о ошибке
+          type: string
+  securitySchemes:
+      basicAuth:     
+        type: http
+        scheme: basic
+security:
+  - basicAuth: []

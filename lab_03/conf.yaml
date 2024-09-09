@@ -1,0 +1,211 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Lab_03 API'
+  description: API для третьего домашнего задания по курсу Архитектура программных систем
+servers:
+  - url: http://localhost:8080
+    description: Example server
+paths:
+  /confs:
+    get:
+      summary: Чтение информации о конференциях пользователя
+      parameters:
+      - name: owner_id
+        description: Уникальный идентификатор владельца конференции
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        '200':
+          description: Найденные конференции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/confs'
+        404:
+          description: No user found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /conf:
+    get:
+      summary: Чтение информации о конференции
+      parameters:
+      - name: id
+        description: Уникальный идентификатор конференции
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        '200':
+          description: Найденная конференция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/conf'
+        404:
+          description: Конференция не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Обновление доклада в конференции
+      parameters:
+      - name: id
+        description: Идентификатор конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: conf_name
+        description: Название конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: conf_password
+        description: Пароль конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: owner_id
+        description: Идентификатор владельца конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: date_create_conf
+        description: Дата создания конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Идентификатор обновлённой конференции
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка обновления конференции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Добавление новой конференции
+      parameters:
+      - name: id
+        description: Идентификатор конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: conf_name
+        description: Название конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: conf_password
+        description: Пароль конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: owner_id
+        description: Идентификатор владельца конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: date_create_conf
+        description: Дата создания конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Идентификатор добавленной конференции
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка добавления конференции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    id:
+      description: Уникальный идентификатор конференции
+      type: integer
+    confs:
+      type: array
+      items:
+        $ref: '#/components/schemas/conf'
+    conf:
+      type: object
+      properties:
+        id:
+          type: integer
+        conf_name:
+          type: string
+        conf_password:
+          type: string  
+        owner_id:
+          type: integer
+        date_create_conf:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Сообщение о ошибке
+          type: string
+  securitySchemes:
+      basicAuth:     
+        type: http
+        scheme: basic
+security:
+  - basicAuth: []

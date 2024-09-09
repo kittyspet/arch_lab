@@ -1,0 +1,147 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Arch Lab Example API'
+  description: Пример API для первого домашнего задания по курсу Архитектура программных систем
+servers:
+  - url: http://localhost:8080
+    description: Example server
+paths:
+  /search_report:
+    get:
+      summary: Поиск доклада по маске названия
+      parameters:
+      - name: report_name
+        description: Название
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The reports for the provided masks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reports'
+        404:
+          description: No conf found for the provided mask
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  
+  /conf:
+    get:
+      summary: Чтение информации о докладе
+      parameters:
+      - name: id
+        description: Уникальный идентификатор доклада
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/report_id'
+      responses:
+        '200':
+          description: Найденная конференция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/report'
+        404:
+          description: Конференция не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Добавление нового доклада
+      parameters:
+      - name: report_name
+        description: Название доклада
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: room
+        description: Комната
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: text
+        description: Пароль конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Идентификатор, добавленного доклада
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка добавления доклада
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    report_id:
+      description: Уникальный идентификатор доклада
+      type: integer
+    reports:
+      type: array
+      items:
+        $ref: '#/components/schemas/report'
+    report:
+      type: object
+      required:
+        - id
+        - report_name
+        - room
+        - text
+      properties:
+        id:
+          $ref: '#/components/schemas/report_id'
+        conf_name:
+          type: string
+        owner:
+          type: integer
+        password:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Сообщение о ошибке
+          type: string
+  securitySchemes:
+      basicAuth:     
+        type: http
+        scheme: basic
+security:
+  - basicAuth: []
