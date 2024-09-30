@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "conf_name": "Конференция по технологиям искусственного интеллекта",
+    "conf_password": "AI@Conference2024",
+    "owner_id": 101,
+    "date_create_conf": "2024-04-06T12:30:00Z"
+  },
+  {
+    "id": 2,
+    "conf_name": "Форум по медицинским инновациям",
+    "conf_password": "MedInnovations#2024",
+    "owner_id": 102,
+    "date_create_conf": "2024-04-07T09:45:00Z"
+  },
+  {
+    "id": 3,
+    "conf_name": "Семинар по управлению проектами",
+    "conf_password": "ProjectManagementSeminar!",
+    "owner_id": 104,
+    "date_create_conf": "2024-04-07T06:00:00Z"
+  },
+  {
+    "id": 4,
+    "conf_name": "Конференция по экологии и устойчивому развитию",
+    "conf_password": "EcoSustainability#2024",
+    "owner_id": 105,
+    "date_create_conf": "2024-04-07T19:00:00Z"
+  },
+  {
+    "id": 5,
+    "conf_name": "Семинар по финансовым инвестициям",
+    "conf_password": "InvestmentSeminar2024",
+    "owner_id": 106,
+    "date_create_conf": "2024-04-08T15:00:00Z"
+  },
+  {
+    "id": 6,
+    "conf_name": "Форум по развитию лидерских качеств",
+    "conf_password": "LeadershipForum#2024",
+    "owner_id": 107,
+    "date_create_conf": "2024-04-09T12:00:00Z"
+  },
+  {
+    "id": 7,
+    "conf_name": "Конференция по образованию и новым методикам преподавания",
+    "conf_password": "EduInnovations@2024",
+    "owner_id": 108,
+    "date_create_conf": "2024-04-06T20:00:00Z"
+  },
+  {
+    "id": 8,
+    "conf_name": "Симпозиум по современным тенденциям в искусстве",
+    "conf_password": "ArtSymposium2024!",
+    "owner_id": 109,
+    "date_create_conf": "2024-04-07T21:00:00Z"
+  },
+  {
+    "id": 9,
+    "conf_name": "Конференция по инновационным технологиям в автомобилестроении",
+    "conf_password": "AutoTechInnovations#2024",
+    "owner_id": 110,
+    "date_create_conf": "2024-04-08T18:00:00Z"
+  },
+  {
+    "id": 10,
+    "conf_name": "Форум по устойчивому развитию туризма",
+    "conf_password": "SustainableTourismForum2024",
+    "owner_id": 111,
+    "date_create_conf": "2024-04-06T23:00:00Z"
+  },
+  {
+    "id": 11,
+    "conf_name": "Предпринимательство, общий и стратегический менеджмент, международный бизнес",
+    "conf_password": "1111",
+    "owner_id": 1,
+    "date_create_conf": "2024-04-06T23:00:00Z"
+  },
+  {
+    "id": 12,
+    "conf_name": "Информационные технологии в менеджменте, управление знаниями",
+    "conf_password": "1212",
+    "owner_id": 1,
+    "date_create_conf": "2024-04-06T23:00:00Z"
+  }
+]

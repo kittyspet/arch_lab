@@ -1,0 +1,255 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Lab_05 API'
+  description: API для пятого домашнего задания по курсу Архитектура программных систем
+servers:
+  - url: http://localhost:8888
+    description: Example server
+paths:
+  /reports:
+    get:
+      summary: Чтение информации о конференциях пользователя
+      responses:
+        '200':
+          description: Найденные конференции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reports'
+        404:
+          description: No user found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /report:
+    get:
+      summary: Чтение информации о конференции
+      parameters:
+      - name: id
+        description: Уникальный идентификатор конференции
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/id'
+      responses:
+        '200':
+          description: Найденная конференция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/report'
+        404:
+          description: Конференция не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Обновление доклада в конференции
+      parameters:
+      - name: id
+        description: Идентификатор конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: report_name
+        description: Название конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: report_text
+        description: Пароль конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: room_id
+        description: Идентификатор владельца конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: date_report
+        description: Дата создания конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: comment_text
+        description: Текст доклада
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: commentator_id
+        description: id автора доклада
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: date_comment
+        description: Дата создания доклада
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Идентификатор обновлённой конференции
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка обновления конференции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Добавление новой конференции
+      parameters:
+      - name: id
+        description: Идентификатор конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: report_name
+        description: Название конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: report_text
+        description: Пароль конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: room_id
+        description: Идентификатор владельца конференции
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - name: date_report
+        description: Дата создания конференции
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: comment_text
+        description: Текст доклада
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: commentator_id
+        description: id автора доклада
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: date_comment
+        description: Дата создания доклада
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Идентификатор добавленной конференции
+          content:
+            application/json:
+              schema:
+                type: integer
+        404:
+          description: Ошибка добавления конференции
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Неожиданная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    id:
+      description: Уникальный идентификатор конференции
+      type: integer
+    reports:
+      type: array
+      items:
+        $ref: '#/components/schemas/report'
+    report:
+      type: object
+      properties:
+        id:
+          type: integer
+        report_name:
+          type: string
+        report_text:
+          type: string  
+        room_id:
+          type: integer
+        date_report:
+          type: string
+        comment:
+          type: object
+          properties:
+            comment_text:
+              type: string
+            commentator_id:
+              type: integer
+            date_comment:
+              type: string
+              
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: Сообщение о ошибке
+          type: string
+  securitySchemes:
+      bearerAuth:     
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+      basicAuth:
+        type: http
+        scheme: basic
+security:
+  - bearerAuth: []
+  - basicAuth: []
